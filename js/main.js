@@ -15,8 +15,9 @@ var SOURCE_CARDS = [
 /*----- app's active state (variables) -----*/
 let cards; //array of 16 cards in game board
 let firstCard; //first card clicked (card object) or null
-let ignoreClicks;
-
+let secondCard; //second card player clicks on
+let ignoreClicks; //black space that isnt a card
+let gameStatus; //player has uncovered all tiles on the board or is still playing
 
 /*----- cached elements -----*/
 
@@ -40,11 +41,13 @@ function init(){
 function render() {
   cards.forEach(function(card, idx) {
     const imgEl = document.getElementById(idx);
-    const src = (card.matched || card === firstCard) ? card.img : CARD_BACK;
+    const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
     imgEl.src = src;
     
   });
 }
+
+
 function refreshBoard(){
   window.location.reload();
 } 
@@ -64,30 +67,29 @@ while (tempCards.length) {
 return cards;
 }
 
-//update all impacted state and then call render
 function handleChoice(evt) {
-const cardIdx = parseInt(evt.target.id);
-if (isNaN(cardIdx) || ignoreClicks) return;
-const card = cards[cardIdx]
-if (firstCard) {
-  if (firstCard.img === card.img) {
-    //correct match 
-    firstCard.matched = card.matched = true;
-    firstCard = null;
+  const cardIdx = parseInt(evt.target.id);
+  if (isNaN(cardIdx) || ignoreClicks) return;
+  const card = cards[cardIdx];
+  if (firstCard) {
+    if (secondCard) {
+      if (firstCard.img === secondCard.img) {
+        // correct match
+        firstCard.matched = secondCard.matched = true;
+      } 
+      firstCard = null;
+      secondCard = null;
+    } else {
+        if (
+          isNaN(cardIdx) ||
+          ignoreClicks  ||
+          cards[cardIdx] === firstCard) return;
+        secondCard = card;
+      }   
   } else {
-    //incorrect
-    setTimeout(function(){
-      firstCard.matched = card.matched = true;
-      firstCard('click', firstCard.matched = false)
-      card('click', card.matched = false)
-      card.matched = false
-      firstCard.matched = false
-    },3000);
-  }
-} else {
     firstCard = card;
-}
-render();
+  }
+  render();
 }
 
 
