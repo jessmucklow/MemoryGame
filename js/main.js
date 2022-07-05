@@ -17,16 +17,16 @@ let cards; //array of 16 cards in game board
 let firstCard; //first card clicked (card object) or null
 let secondCard; //second card player clicks on
 let ignoreClicks; //black space that isnt a card
-let gameStatus; //player has uncovered all tiles on the board or is still playing
 
 /*----- cached elements -----*/
 
+let header = document.querySelector("h1");
 
 
 /*----- event listeners -----*/
 document.querySelector('container').addEventListener('click', handleChoice);
 document.querySelector('button').addEventListener('click', refreshBoard);
- 
+
 
 /*----- functions -----*/
 init();
@@ -43,9 +43,16 @@ function render() {
     const imgEl = document.getElementById(idx);
     const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
     imgEl.src = src;
-    
   });
 }
+
+// function endMsg() {
+//   if () {
+
+//   }
+//  return header.innerText = "Your Memory is Memorable.";
+                                                          
+// }
 
 
 function refreshBoard(){
