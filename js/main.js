@@ -13,7 +13,8 @@ var SOURCE_CARDS = [
 
 
 /*----- app's active state (variables) -----*/
-
+let cards; //array of 16 cards in game board
+let firstCard; //first card clicked (card object) or null
 
 
 /*----- cached elements -----*/
@@ -25,7 +26,37 @@ var SOURCE_CARDS = [
 
 
 /*----- functions -----*/
+Init();
+
+function init(){
+  cards = getShuffledCards();
+  firstCard = null;
+  render();
+}
+
+function render() {
+  cards.forEach(function(card, idx) {
+    const imgEl = document.getElementById(idx);
+    imgEl.src = card.img;
+    
+  });
+}
+
+function getShuffledCards(){
+let tempCards = [];
+let cards = [];
+for (let card of SOURCE_CARDS) {
+  tempCards.push(card, card);
+}
+while (tempCards.length) {
+  let rndIdx = Math.floor(Math.random() * tempCards.length);
+  let card = tempCards.splice(rndIdx, 1)[0];
+  cards.push(card);
+
+}
 
 
+return cards;
+}
 
 // change
