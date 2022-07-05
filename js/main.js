@@ -24,7 +24,8 @@ let ignoreClicks;
 
 /*----- event listeners -----*/
 document.querySelector('container').addEventListener('click', handleChoice);
-
+document.querySelector('button').addEventListener('click', refreshBoard);
+ 
 
 /*----- functions -----*/
 init();
@@ -44,6 +45,9 @@ function render() {
     
   });
 }
+function refreshBoard(){
+  window.location.reload();
+} 
 
 function getShuffledCards(){
 let tempCards = [];
@@ -67,14 +71,18 @@ if (isNaN(cardIdx) || ignoreClicks) return;
 const card = cards[cardIdx]
 if (firstCard) {
   if (firstCard.img === card.img) {
+    //correct match 
     firstCard.matched = card.matched = true;
     firstCard = null;
-    //correct match 
   } else {
-    
-    // firstCard.matched = card.matched = false;
-    //incorrect match
-
+    //incorrect
+    setTimeout(function(){
+      firstCard.matched = card.matched = true;
+      firstCard('click', firstCard.matched = false)
+      card('click', card.matched = false)
+      card.matched = false
+      firstCard.matched = false
+    },3000);
   }
 } else {
     firstCard = card;

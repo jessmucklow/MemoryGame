@@ -26,12 +26,20 @@
     background-color:grey; 
     border-radius: 10%;
     color: white;
-    padding: 5px 5px;
+    padding: 10px 15px;
     text-align: center;
     border: none;
     font-family: 'Patrick Hand', cursive;
+    cursor: pointer;
+    font-size: large;
   }
-
+  button:hover {
+    padding: 15px 20px;
+    font-size: larger;
+    background-color:#fe2020; 
+    
+  }
+  
   container {
     display: grid;
     grid-template-columns: repeat(4, 15vmin);
@@ -42,5 +50,11 @@
   img {
     width: 100%;
     border-radius: 3vmin;
+    cursor: pointer;
+  }
+  
+  img:hover {
+    width: 105%;
+    
   }
   
