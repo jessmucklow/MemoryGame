@@ -17,13 +17,15 @@ let cards; //array of 16 cards in game board
 let firstCard; //first card clicked (card object) or null
 let secondCard; //second card player clicks on
 let ignoreClicks; //black space that isnt a card
+let score; //track gamestatus until endgame
 
 /*----- cached elements -----*/
 
-let header = document.querySelector("h1");
-
+let header = document.querySelector("h1"); //to replace game header with end message
 
 /*----- event listeners -----*/
+
+
 document.querySelector('container').addEventListener('click', handleChoice);
 document.querySelector('button').addEventListener('click', refreshBoard);
 
@@ -36,6 +38,7 @@ function init(){
   firstCard = null;
   ignoreClicks = false;
   render();
+  score = 0;
 }
 
 function render() {
@@ -43,22 +46,24 @@ function render() {
     const imgEl = document.getElementById(idx);
     const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
     imgEl.src = src;
+    gameStatus();
   });
 }
 
-// function endMsg() {
-//   if () {
+//upates number of matches until game is complete
+function gameStatus() {
+  if (score === 8) {
+    return header.innerText = "Your Memory is Memorable.";
+  }
+  console.log(score);
+}
 
-//   }
-//  return header.innerText = "Your Memory is Memorable.";
-                                                          
-// }
-
-
-function refreshBoard(){
+//button to manually reshuffle cards
+  function refreshBoard(){
   window.location.reload();
 } 
 
+//shuffle cards 
 function getShuffledCards(){
 let tempCards = [];
 let cards = [];
@@ -74,6 +79,7 @@ while (tempCards.length) {
 return cards;
 }
 
+//game logic
 function handleChoice(evt) {
   const cardIdx = parseInt(evt.target.id);
   if (isNaN(cardIdx) || ignoreClicks) return;
@@ -83,11 +89,12 @@ function handleChoice(evt) {
       if (firstCard.img === secondCard.img) {
         // correct match
         firstCard.matched = secondCard.matched = true;
+        score++ // increase score by 1
       } 
       firstCard = null;
       secondCard = null;
     } else {
-        if (
+      if (
           isNaN(cardIdx) ||
           ignoreClicks  ||
           cards[cardIdx] === firstCard) return;
@@ -99,6 +106,3 @@ function handleChoice(evt) {
   render();
 }
 
-
-// console.log(card)
-// change
