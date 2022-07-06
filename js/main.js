@@ -59,7 +59,7 @@ function gameStatus() {
 }
 
 //button to manually reshuffle cards
-  function refreshBoard(){
+function refreshBoard(){
   window.location.reload();
 } 
 
