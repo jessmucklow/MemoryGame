@@ -17,7 +17,8 @@ let cards; //array of 16 cards in game board
 let firstCard; //first card clicked (card object) or null
 let secondCard; //second card player clicks on
 let ignoreClicks; //black space that isnt a card
-let score; //track gamestatus until endgame
+let score; //track gamestatus until endgame 
+let attempts; //track number of fatal attempts
 
 /*----- cached elements -----*/
 
@@ -39,6 +40,7 @@ function init(){
   ignoreClicks = false;
   render();
   score = 0;
+  attempts = 0;
 }
 
 function render() {
@@ -47,6 +49,7 @@ function render() {
     const src = (card.matched || card === firstCard || card === secondCard) ? card.img : CARD_BACK;
     imgEl.src = src;
     gameStatus();
+    failedMatches();
   });
 }
 
@@ -55,7 +58,17 @@ function gameStatus() {
   if (score === 8) {
     return header.innerText = "Your Memory is Memorable.";
   }
-  console.log(score);
+}
+
+function failedMatches() {
+  if (attempts === 13) {
+    return header.innerText = "Did you drink your coffee this morning?";
+   } if (attempts === 18) {
+    return header.innerText = "Statistically, you should have made a little progress by now..";
+  } if (attempts >= 25) {
+     return header.innerText = `You've failed ${attempts} times so far. That's a little embarassing.`;
+   }
+   console.log(attempts)
 }
 
 //button to manually reshuffle cards
@@ -99,6 +112,7 @@ function handleChoice(evt) {
           ignoreClicks  ||
           cards[cardIdx] === firstCard) return;
         secondCard = card;
+        attempts++ //increase fatal attempts by 1
       }   
   } else {
     firstCard = card;
