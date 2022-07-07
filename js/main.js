@@ -92,7 +92,7 @@ return cards;
 //game match logic
 function handleChoice(evt) {
   const cardIdx = parseInt(evt.target.id);
-  if (isNaN(cardIdx) || ignoreClicks) return;
+  if (isNaN(cardIdx) || ignoreClicks) return; 
   const card = cards[cardIdx];
   if (firstCard) {
     if (secondCard) {
