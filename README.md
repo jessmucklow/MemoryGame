@@ -11,7 +11,7 @@
 
  JaveScript, HTML, CSS.
 
-# Game Link 
+# Game link 
 
 [Click here to play!](https://jessmucklow.github.io/MemoryGame/)
 
