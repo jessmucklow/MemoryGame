@@ -1,7 +1,7 @@
 # MemoryGame 
 
  Browser-based concentration game.
- Match the tiles two by two to reveal the entire booard.
+ Match the tiles two by two to reveal the entire board.
  
 ![game screenshot](https://i.gyazo.com/7ef3228d2359d7ee416a9c4317b5a903.png)
 
@@ -13,7 +13,7 @@
 
 # Game Link 
 
-[Click here to play!](https://github.com/jessmucklow/MemoryGame)
+[Click here to play!](https://jessmucklow.github.io/MemoryGame/)
 
 # Future updates to be made
 
