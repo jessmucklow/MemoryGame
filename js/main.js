@@ -11,29 +11,25 @@ var SOURCE_CARDS = [
 ];
 const CARD_BACK = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Color_icon_black.svg/800px-Color_icon_black.svg.png'; 
 
-
 /*----- app's active state (variables) -----*/
 let cards; //array of 16 cards in game board
-let firstCard; //first card clicked (card object) or null
-let secondCard; //second card player clicks on
+let firstCard; //first card clicked by player
+let secondCard; //second card clicked by player
 let ignoreClicks; //black space that isnt a card
 let score; //track gamestatus until endgame 
-let attempts; //track number of fatal attempts
+let attempts; //track number of failed attempts
 
 /*----- cached elements -----*/
-
 let header = document.querySelector("h1"); //to replace game header with end message
 
 /*----- event listeners -----*/
-
-
 document.querySelector('container').addEventListener('click', handleChoice);
 document.querySelector('button').addEventListener('click', refreshBoard);
 
-
 /*----- functions -----*/
 init();
-//initial gameboard setup
+
+//initial gameboard
 function init(){
   cards = getShuffledCards();
   firstCard = null;
@@ -42,6 +38,7 @@ function init(){
   score = 0;
   attempts = 0;
 }
+
 //render function
 function render() {
   cards.forEach(function(card, idx) {
@@ -88,11 +85,11 @@ function getShuffledCards(){
     let card = tempCards.splice(rndIdx, 1)[0];
     cards.push(card);
 
-}
+  }
 return cards;
 }
 
-//game logic
+//game match logic
 function handleChoice(evt) {
   const cardIdx = parseInt(evt.target.id);
   if (isNaN(cardIdx) || ignoreClicks) return;
@@ -112,7 +109,7 @@ function handleChoice(evt) {
           ignoreClicks  ||
           cards[cardIdx] === firstCard) return;
         secondCard = card;
-        attempts++ //increase fatal attempts by 1
+        attempts++ //increase failed attempts by 1
       }   
   } else {
    firstCard = card;
