@@ -11,7 +11,8 @@
   }
 
   body {
-    background-image: linear-gradient(to bottom left, white, black);
+    
+    background-image: linear-gradient(to bottom left,black, rgb(202, 200, 200), black);
     height: 100vh;
     margin: 0;
     display: flex;
